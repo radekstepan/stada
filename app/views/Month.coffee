@@ -1,6 +1,6 @@
 Chaplin = require 'chaplin'
 
-module.exports = class Month extends Chaplin.View
+module.exports = class MonthView extends Chaplin.View
 
     tagName: 'li'
 
