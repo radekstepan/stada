@@ -1,10 +1,6 @@
-Töskur = require 'core/Application'
-Store = require 'models/Store'
+Staða = require 'core/Application'
 
 $ ->
-    # Initialize the Store.
-    window.Store = new Store()
-
     # Initialize the Application.
-    window.App = new Töskur()
+    window.App = new Staða()
     window.App.initialize()

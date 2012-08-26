@@ -26,5 +26,5 @@ exports.config =
 
     server:
         path: 'server.coffee'
-        port: 2222
+        port: 3333
         run: yes
