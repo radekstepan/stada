@@ -62,12 +62,16 @@ exports.startServer = (port, dir) ->
 
     app.router.path "/api/day/:year/:month/:day", ->
         @post (year, month, day) ->
+            entry = @req.body
+            # Remove _id
+            delete entry._id
+
             app.db (collection) =>
                 collection.findAndModify
                     'year':  parseInt(year)
                     'month': parseInt(month)
                     'day':   parseInt(day)
-                , [], @req.body, 'upsert': true, (err, object) =>
+                , [], entry, 'upsert': true, (err, object) =>
                     throw err if err
 
                     # End.

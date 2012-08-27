@@ -5,7 +5,7 @@
 
 <form>
     <label>What happened?</label>
-    <textarea name="notes" rows="14"></textarea>
+    <textarea name="notes" rows="14"><%= @notes %></textarea>
 
     <label>Activities</label>
     <div class="activities"></div>

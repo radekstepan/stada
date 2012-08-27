@@ -17,9 +17,14 @@ module.exports = class Month extends Chaplin.Model
 
     # Push a new day onto the stack.
     newDay: (day) ->
-        # Store.
-        day = new Day { 'day': day, 'month': @attributes.month, 'year': @attributes.year }
-        @store.push day, 'silent': true
+        # Do we have this day already?
+        r = @store.where 'day': day, 'month': @attributes.month, 'year': @attributes.year
+        if r.length is 0
+            # Store.
+            day = new Day { 'day': day, 'month': @attributes.month, 'year': @attributes.year }
+            @store.push day, 'silent': true
+        else
+            day = r.pop() # poop it...
 
         # Local.
         days = @.get('days')

@@ -1,10 +1,13 @@
 Staða = require 'core/Application'
-
 Store = require 'models/Store'
 
-$ ->
-    window.Store = new Store()
+root = this
 
-    # Initialize the Application.
-    window.App = new Staða()
-    window.App.initialize()
+$ ->
+    # Bootstrap all the day entries.
+    $.getJSON '/api/days', (data) ->
+        root.Store = new Store data
+
+        # Initialize the Application.
+        root.App = new Staða()
+        root.App.initialize()
