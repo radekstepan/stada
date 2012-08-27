@@ -1,1 +1,5 @@
-<div id="year"></div>
+<div class="row">
+    <div id="tags" class="one columns"></div>
+    <div id="calendar" class="six columns"></div>
+    <div id="entry" class="five columns"></div>
+</div>

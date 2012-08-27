@@ -5,7 +5,7 @@ MonthView = require 'views/Month'
 module.exports = class YearCollectionView extends Chaplin.CollectionView
 
     tagName:           'ul'
-    container:         '#year'
+    container:         '#calendar'
     containerMethod:   'html'
     autoRender:        true
     animationDuration: 0

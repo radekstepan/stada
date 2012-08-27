@@ -1,4 +1,4 @@
-<h3><%= [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ][ @month - 1 ] %></h3>
+<h3><%= [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ][ @month - 1 ] %> <%= @year %></h3>
 
 <table>
     <tbody></tbody>
