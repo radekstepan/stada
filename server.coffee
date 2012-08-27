@@ -1,7 +1,6 @@
 #!/usr/bin/env coffee
 
 flatiron = require 'flatiron'
-union    = require 'union'
 connect  = require 'connect'
 
 # Export for Brunch.
