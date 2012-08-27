@@ -2,7 +2,7 @@ Chaplin = require 'chaplin'
 
 Month = require 'models/Month'
 
-module.exports = class YearCollection extends Chaplin.Collection
+module.exports = class Year extends Chaplin.Collection
 
     model: Month
 

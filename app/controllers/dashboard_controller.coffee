@@ -2,7 +2,7 @@ Chaplin = require 'chaplin'
 
 BodyView = require 'views/Body'
 
-YearCollection = require 'models/YearCollection'
+Year = require 'models/Year'
 YearCollectionView = require 'views/YearCollection'
 
 module.exports = class DashboardController extends Chaplin.Controller
@@ -13,4 +13,4 @@ module.exports = class DashboardController extends Chaplin.Controller
         new BodyView()
 
         # Create a new YearCollection that holds the current and the past 11 months.
-        new YearCollectionView 'collection': new YearCollection()
+        new YearCollectionView 'collection': new Year()
