@@ -24,6 +24,28 @@ module.exports = class Entry extends Chaplin.View
         super
 
         @delegate 'click', '.moar', @newActivity
+        @delegate 'click', '.save', @save
 
     newActivity: =>
         $(@el).find('.activities').append require('templates/entry_activity') 'key': @activity++
+
+    save: =>
+        # Serialize form fields.
+        attr = {}
+        for object in $(@el).find('form').serializeArray()
+            attr[object.name] = object.value
+
+        # Update the model.
+        @model.set 'notes': attr.notes, { 'silent': true }
+        done = false ; i = 0
+        while not done
+            if attr["activity-#{i}"]?
+                activities = @model.get('activities')
+                activities.push 'text': attr["activity-#{i}"], 'points': parseInt(attr["points-#{i}"])
+                @model.unset 'activities', { 'silent': true }
+                @model.set 'activities': activities, { 'silent': true }
+                i++
+            else done = true
+
+        # Sync the model.
+        @model.save()

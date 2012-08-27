@@ -39,7 +39,7 @@ exports.startServer = (port, dir) ->
                     collection done
 
     # API.
-    app.router.path "/entries.json", ->
+    app.router.path "/api/days", ->
         @get ->
             # Give me all public documents.
             app.db (collection) =>                
@@ -48,4 +48,9 @@ exports.startServer = (port, dir) ->
 
                     @res.writeHead 200, "content-type": "application/json"
                     @res.write JSON.stringify docs
-                    @res.end()         
+                    @res.end()
+
+    app.router.path "/api/day/:year/:month/:day", ->
+        @post ->
+            console.log @req.body
+            @res.end()

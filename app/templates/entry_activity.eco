@@ -3,7 +3,7 @@
         <input type="text" name="activity-<%= @key %>"></input>
     </div>
     <div class="two columns">
-        <select name="points">
+        <select name="points-<%= @key %>">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
