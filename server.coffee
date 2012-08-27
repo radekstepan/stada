@@ -39,6 +39,16 @@ exports.startServer = (port, dir) ->
                     collection done
 
     # API.
+    app.router.path "/api/reset", ->
+        @get ->
+            app.db (collection) =>
+                collection.remove {}, (err) =>
+                    throw err if err
+
+                    # End.
+                    @res.writeHead 200
+                    @res.end()
+
     app.router.path "/api/days", ->
         @get ->
             # Give me all public documents.
