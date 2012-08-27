@@ -1,0 +1,11 @@
+<h3>
+    <%= @day %> <%= [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ][ @month - 1 ] %> <%= @year %>
+    <span><%= @relative %></span>
+</h3>
+
+<label>What happened?</label>
+<textarea name="notes"></textarea>
+
+<label>Activities</label>
+<div class="activities"></div>
+<a class="tiny secondary nice button moar">Moar!</a></a>

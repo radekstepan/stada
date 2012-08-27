@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="ten columns">
+        <input type="text" name="activity-<%= @key %>"></input>
+    </div>
+    <div class="two columns">
+        <select name="points">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="8">8</option>
+            <option value="13">13</option>
+            <option value="21">21</option>
+            <option value="34">34</option>
+            <option value="55">55</option>
+        </select>
+    </div>
+</div>
