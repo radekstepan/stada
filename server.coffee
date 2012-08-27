@@ -2,7 +2,7 @@
 
 flatiron = require 'flatiron'
 connect  = require 'connect'
-sqlite3  = require('sqlite3').verbose()
+mongodb  = require 'mongodb'
 
 # Export for Brunch.
 exports.startServer = (port, dir) ->
@@ -18,35 +18,34 @@ exports.startServer = (port, dir) ->
     app.start port, (err) ->
         throw err if err
 
-    # SQLite3.   
+    # MongoDB.
     db = null
+    # Add a collection plugin.
     app.use
-        name: "sqlite"
+        name: "mongodb"
         attach: (options) ->
             app.db = (done) ->
-                app.log.info "Use Sqlite"
+                collection = (done) ->
+                    db.collection 'entries', (err, coll) ->
+                        throw err if err
+                        done coll
+
                 unless db?
-                    app.log.info "New db"
-                    db = new sqlite3.Database './db.sqlite3'
-                    db.on 'error', (err) -> throw err
-                    db.on 'open', ->
-                        app.log.info "DB open"
-                        #db.run 'CREATE TABLE "entries" ("text" TEXT, "key" INTEGER PRIMARY KEY ASC AUTOINCREMENT)'
-                        done()
+                    mongodb.Db.connect 'mongodb://localhost:27017/stada', (err, connection) ->
+                        db = connection
+                        throw err if err
+                        collection done
                 else
-                    app.log.info "Reuse old"
-                    done()
+                    collection done
 
     # API.
     app.router.path "/entries.json", ->
         @get ->
             # Give me all public documents.
-            app.db =>
-                app.log.info "Querying"
-
-                db.all 'SELECT * FROM entries', (err, data) =>
+            app.db (collection) =>                
+                collection.find({}, 'sort': 'url').toArray (err, docs) =>
                     throw err if err
 
                     @res.writeHead 200, "content-type": "application/json"
-                    @res.write JSON.stringify data
-                    @res.end()            
+                    @res.write JSON.stringify docs
+                    @res.end()         
