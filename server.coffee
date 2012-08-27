@@ -42,7 +42,7 @@ exports.startServer = (port, dir) ->
     app.router.path "/api/days", ->
         @get ->
             # Give me all public documents.
-            app.db (collection) =>                
+            app.db (collection) =>
                 collection.find({}, 'sort': 'url').toArray (err, docs) =>
                     throw err if err
 
@@ -51,6 +51,15 @@ exports.startServer = (port, dir) ->
                     @res.end()
 
     app.router.path "/api/day/:year/:month/:day", ->
-        @post ->
-            console.log @req.body
-            @res.end()
+        @post (year, month, day) ->
+            app.db (collection) =>
+                collection.findAndModify
+                    'year':  parseInt(year)
+                    'month': parseInt(month)
+                    'day':   parseInt(day)
+                , [], @req.body, 'upsert': true, (err, object) =>
+                    throw err if err
+
+                    # End.
+                    @res.writeHead 200
+                    @res.end()
