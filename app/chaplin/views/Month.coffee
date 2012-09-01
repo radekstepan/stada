@@ -7,13 +7,13 @@ DayView = require 'chaplin/views/Day'
 module.exports = class MonthView extends Chaplin.View
 
     tagName:    'li'
-    autoRender: true
 
     getTemplateFunction: -> require 'chaplin/templates/month'
 
     initialize: ->
         super
 
+        # When days tell us to change, we change...
         Mediator.subscribe 'renderMonths', @render
 
     afterRender: ->
