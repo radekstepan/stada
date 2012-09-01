@@ -4,7 +4,7 @@ Your data, your achievements, your points.
 
 ## Troubleshooting
 
-## NPM
+### NPM
 
 Update to the latest NPM:
 

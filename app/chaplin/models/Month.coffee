@@ -11,7 +11,13 @@ module.exports = class Month extends Chaplin.Model
         @.set 'days': []
 
         # For this month, generate the days.
-        days = 32 - new Date(@attributes.year, @attributes.month - 1, 32).getDate()
+        if (new Date()).getMonth() is @attributes.month - 1
+            # This month, cut short, cannot see the future days.
+            days = (new Date()).getDate()
+        else
+            # A previous month.
+            days = 32 - new Date(@attributes.year, @attributes.month - 1, 32).getDate()
+
         for day in [1...days + 1]
             @newDay day
 
