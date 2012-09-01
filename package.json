@@ -1,7 +1,7 @@
 {
     "name": "stada",
     "author": "Radek <dev@radekstepan.com>",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "private": true,
     "scripts": {
         "start": "./node_modules/.bin/brunch watch --server"

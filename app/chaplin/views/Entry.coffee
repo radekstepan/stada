@@ -55,6 +55,6 @@ module.exports = class Entry extends Chaplin.View
                 @model.set 'activities': activities
                 i++
             else done = true
-        
+
         # Sync the model.
         @model.save()

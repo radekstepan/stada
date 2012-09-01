@@ -20,6 +20,7 @@ module.exports = class DayView extends Chaplin.View
 
             # If we change activities of a Day...
             @modelBind 'change:activities', ->
+                console.log 'fire'
                 # Update the Store max?
                 @model.collection.updateActivePoints @model.get('activities')
                 # Finally, re-render all months.

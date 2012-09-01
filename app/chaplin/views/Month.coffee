@@ -19,6 +19,9 @@ module.exports = class MonthView extends Chaplin.View
     afterRender: ->
         super
 
+        # Clear any previous days.
+        view.dispose() for view in @subviews
+
         $(@el).attr 'data-view', @cid
 
         $(@el).addClass 'month'
