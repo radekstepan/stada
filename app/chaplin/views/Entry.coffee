@@ -48,7 +48,8 @@ module.exports = class Entry extends Chaplin.View
         @model.set { 'notes': attr.notes, 'activities': [] }, { 'silent': true }
         done = false ; i = 0
         while not done
-            if attr["activity-#{i}"]?
+            # Only save activities that have some text to them...
+            if attr["activity-#{i}"]? and attr["activity-#{i}"].length isnt 0
                 activities = @model.get('activities')
                 activities.push 'text': attr["activity-#{i}"], 'points': parseInt(attr["points-#{i}"])
                 @model.unset 'activities', { 'silent': true }
