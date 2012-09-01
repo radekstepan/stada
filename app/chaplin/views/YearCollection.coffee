@@ -7,7 +7,7 @@ module.exports = class YearCollectionView extends Chaplin.CollectionView
     tagName:           'ul'
     container:         '#calendar'
     containerMethod:   'html'
-    autoRender:        true
+    autoRender:        false # otherwise we render twice and lose bindings!
     animationDuration: 0
 
     getView: (month) -> new MonthView 'model': month

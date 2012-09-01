@@ -1,6 +1,7 @@
 Chaplin = require 'chaplin'
 
 require 'chaplin/lib/assert' # assertions
+require 'chaplin/lib/date' # date ago
 
 require 'chaplin/core/Mediator' # our mediator
 

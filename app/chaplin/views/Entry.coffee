@@ -13,8 +13,10 @@ module.exports = class Entry extends Chaplin.View
     getTemplateFunction: -> require 'chaplin/templates/entry'
 
     getTemplateData: ->
+        date = new Date [@model.get('year'), @model.get('month'), @model.get('day')].join('-')
+
         out = @model.toJSON()
-        out.relative = moment([@model.get('year'), @model.get('month'), @model.get('day')].join('-'), 'YYYY-MM-DD').fromNow()
+        out.relative = date.time_ago_in_words_with_parsing()
         out
 
     initialize: ->

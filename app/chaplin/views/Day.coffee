@@ -24,6 +24,4 @@ module.exports = class DayView extends Chaplin.View
             # Register click handler.
             @delegate 'click', @editEntry
 
-    editEntry: ->
-        console.log @model
-        Mediator.publish 'changeEntry', @model
+    editEntry: -> Mediator.publish 'changeEntry', @model
