@@ -6,20 +6,23 @@ module.exports = class Store extends Chaplin.Collection
 
     model: Day
 
-    # Init the maximum...
-    max: 0
-
-    initialize: (opts...) ->
+    initialize: (data) ->
         super
 
         # When init all server days, calculate the max and bands.
-        @updateActivePoints(data.activities) for data in opts[0]
+        @updateMaxPoints data
 
-    # Reduce the points of a day.
-    updateActivePoints: (activities) ->
-        # Local maximum.
-        max = _.reduce(activities, ( (a, b) -> a += b.points ), 0)
-        # Is it global?
-        if max > @max
-            @max = max
-            @band = @max / 6
+    # Recalculate the global maximum of points in all models.
+    updateMaxPoints: (data = @models) ->
+        @max = -Infinity
+
+        # A more verbose, but easier to debug...
+        for day in data
+            # Models or Objects?
+            if day.constructor.name is 'Day'
+                activs = day.get 'activities'
+            else
+                activs = day.activities
+            # Actual reduce.
+            max = _.reduce activs, ( (a, b) -> a += b.points ), 0
+            if max > @max then @band = (@max = max) / 6
