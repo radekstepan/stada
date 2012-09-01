@@ -31,6 +31,9 @@ module.exports = class DayView extends Chaplin.View
             if @model.get('activities').length isnt 0
                 lvl = Math.ceil _.reduce(@model.get('activities'), ( (a, b) -> a += b.points ), 0) / @model.collection.band
                 $(@el).addClass "level#{lvl}"
+            else
+                # Did we at least save some notes?
+                if @model.get('notes').length is 0 then $(@el).addClass 'empty'
 
             # Register click handler.
             @delegate 'click', @editEntry
