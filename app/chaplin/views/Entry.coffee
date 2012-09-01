@@ -52,7 +52,7 @@ module.exports = class Entry extends Chaplin.View
                 activities = @model.get('activities')
                 activities.push 'text': attr["activity-#{i}"], 'points': parseInt(attr["points-#{i}"])
                 @model.unset 'activities', { 'silent': true }
-                @model.set 'activities': activities, { 'silent': true }
+                @model.set 'activities': activities
                 i++
             else done = true
         

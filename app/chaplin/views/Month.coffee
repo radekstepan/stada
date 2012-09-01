@@ -1,5 +1,7 @@
 Chaplin = require 'chaplin'
 
+Mediator = require 'chaplin/core/Mediator'
+
 DayView = require 'chaplin/views/Day'
 
 module.exports = class MonthView extends Chaplin.View
@@ -8,6 +10,11 @@ module.exports = class MonthView extends Chaplin.View
     autoRender: true
 
     getTemplateFunction: -> require 'chaplin/templates/month'
+
+    initialize: ->
+        super
+
+        Mediator.subscribe 'renderMonths', @render
 
     afterRender: ->
         super
