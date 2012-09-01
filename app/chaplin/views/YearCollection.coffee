@@ -1,6 +1,6 @@
 Chaplin = require 'chaplin'
 
-MonthView = require 'views/Month'
+MonthView = require 'chaplin/views/Month'
 
 module.exports = class YearCollectionView extends Chaplin.CollectionView
 

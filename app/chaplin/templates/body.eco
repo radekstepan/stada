@@ -1,7 +1,7 @@
 <div id="top">
         <div class="row">
             <div class="two columns">
-                <a class="name">Staða#radek</a>
+                <a class="name">Staða</a>
             </div>
             <div class="two column">
                 <a id="today" class="small blue nice button right today">Today</a></a>

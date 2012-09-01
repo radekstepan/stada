@@ -1,5 +1,7 @@
 Chaplin = require 'chaplin'
 
+Mediator = require 'chaplin/core/Mediator'
+
 module.exports = class Entry extends Chaplin.View
 
     container:       '#entry'
@@ -8,7 +10,7 @@ module.exports = class Entry extends Chaplin.View
     # Number of activities we have.
     activity: 0
 
-    getTemplateFunction: -> require 'templates/entry'
+    getTemplateFunction: -> require 'chaplin/templates/entry'
 
     getTemplateData: ->
         out = @model.toJSON()
@@ -18,7 +20,7 @@ module.exports = class Entry extends Chaplin.View
     initialize: ->
         super
 
-        Chaplin.mediator.subscribe 'changeEntry', (@model) => @render()
+        Mediator.subscribe 'changeEntry', (@model) => @render()
 
     afterRender: ->
         super
@@ -29,10 +31,10 @@ module.exports = class Entry extends Chaplin.View
         # Render activites that we hold.
         for activity in @model.get 'activities'
             activity.key = @activity++
-            $(@el).find('.activities').append require('templates/entry_activity') activity
+            $(@el).find('.activities').append require('chaplin/templates/entry_activity') activity
 
     newActivity: =>
-        $(@el).find('.activities').append require('templates/entry_activity') 'key': @activity++
+        $(@el).find('.activities').append require('chaplin/templates/entry_activity') 'key': @activity++
 
     save: =>
         # Serialize form fields.

@@ -1,5 +1,5 @@
-Staða = require 'core/Application'
-Store = require 'models/Store'
+Staða = require 'chaplin/core/Application'
+Store = require 'chaplin/models/Store'
 
 root = this
 

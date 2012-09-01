@@ -1,6 +1,8 @@
 Chaplin = require 'chaplin'
 
-EntryView = require 'views/Entry'
+Mediator = require 'chaplin/core/Mediator'
+
+EntryView = require 'chaplin/views/Entry'
 
 module.exports = class Body extends Chaplin.View
 
@@ -8,7 +10,7 @@ module.exports = class Body extends Chaplin.View
     containerMethod: 'html'
     autoRender:      true
 
-    getTemplateFunction: -> require 'templates/body'
+    getTemplateFunction: -> require 'chaplin/templates/body'
 
     store: window.Store
 
@@ -27,4 +29,4 @@ module.exports = class Body extends Chaplin.View
             'month': now.getMonth() + 1
             'day':   now.getDate()
 
-        Chaplin.mediator.publish 'changeEntry', models.pop()
+        Mediator.publish 'changeEntry', models.pop()

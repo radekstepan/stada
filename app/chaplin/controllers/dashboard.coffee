@@ -1,9 +1,9 @@
 Chaplin = require 'chaplin'
 
-BodyView = require 'views/Body'
+BodyView = require 'chaplin/views/Body'
 
-Year = require 'models/Year'
-YearCollectionView = require 'views/YearCollection'
+Year = require 'chaplin/models/Year'
+YearCollectionView = require 'chaplin/views/YearCollection'
 
 module.exports = class DashboardController extends Chaplin.Controller
 

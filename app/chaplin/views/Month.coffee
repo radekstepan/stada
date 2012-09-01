@@ -1,15 +1,18 @@
 Chaplin = require 'chaplin'
 
-DayView = require 'views/Day'
+DayView = require 'chaplin/views/Day'
 
 module.exports = class MonthView extends Chaplin.View
 
-    tagName: 'li'
+    tagName:    'li'
+    autoRender: true
 
-    getTemplateFunction: -> require 'templates/month'
+    getTemplateFunction: -> require 'chaplin/templates/month'
 
     afterRender: ->
         super
+
+        $(@el).attr 'data-view', @cid
 
         $(@el).addClass 'month'
 
@@ -24,13 +27,12 @@ module.exports = class MonthView extends Chaplin.View
 
         # Append the actual days.
         for model in days
-            day = new DayView 'model': model
-            week.append day.render().el
+            @subviews.push new DayView 'model': model, 'container': week
             # Week shift?
             if i % 7 is 0 then week = @appendWeek()
             i++
 
     appendWeek: ->
         table = $(@el).find('table tbody')
-        table.append require('templates/week')()
+        table.append require('chaplin/templates/week')()
         table.find('tr:last-child')

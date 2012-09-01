@@ -1,6 +1,11 @@
 Chaplin = require 'chaplin'
-Layout = require 'core/Layout'
-routes = require 'core/routes'
+
+require 'chaplin/lib/assert' # assertions
+
+require 'chaplin/core/Mediator' # our mediator
+
+Layout = require 'chaplin/core/Layout'
+routes = require 'chaplin/core/routes'
 
 # The application object.
 module.exports = class Staða extends Chaplin.Application
@@ -13,9 +18,11 @@ module.exports = class Staða extends Chaplin.Application
         super
 
         # Initialize core components
-        @initDispatcher()
+        @initDispatcher
+            'controllerPath':   'chaplin/controllers/'
+            'controllerSuffix': ''
+        
         @initLayout()
-        @initMediator()
 
         # Register all routes and start routing
         @initRouter routes
@@ -28,11 +35,3 @@ module.exports = class Staða extends Chaplin.Application
         # Use an application-specific Layout class. Currently this adds
         # no features to the standard Chaplin Layout, it’s an empty placeholder.
         @layout = new Layout {@title}
-
-    # Create additional mediator properties.
-    initMediator: ->
-        # Create a user property
-        Chaplin.mediator.user = null
-        # Add additional application-specific properties and methods
-        # Seal the mediator
-        Chaplin.mediator.seal()

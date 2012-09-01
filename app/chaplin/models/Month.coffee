@@ -1,6 +1,6 @@
 Chaplin = require 'chaplin'
 
-Day = require 'models/Day'
+Day = require 'chaplin/models/Day'
 
 module.exports = class Month extends Chaplin.Model
 
