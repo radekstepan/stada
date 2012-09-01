@@ -7,9 +7,6 @@ module.exports = class Entry extends Chaplin.View
     container:       '#entry'
     containerMethod: 'html'
 
-    # Number of activities we have.
-    activity: 0
-
     getTemplateFunction: -> require 'chaplin/templates/entry'
 
     getTemplateData: ->
@@ -26,6 +23,9 @@ module.exports = class Entry extends Chaplin.View
 
     afterRender: ->
         super
+
+        # Number of activities we have.
+        @activity = 0
 
         @delegate 'click', '.moar', @newActivity
         @delegate 'click', '.save', @save
