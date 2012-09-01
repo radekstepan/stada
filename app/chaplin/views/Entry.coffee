@@ -53,9 +53,15 @@ module.exports = class Entry extends Chaplin.View
                 activities = @model.get('activities')
                 activities.push 'text': attr["activity-#{i}"], 'points': parseInt(attr["points-#{i}"])
                 @model.unset 'activities', { 'silent': true }
-                @model.set 'activities': activities
+                @model.set 'activities': activities, { 'silent': true }
                 i++
             else done = true
 
         # Sync the model.
         @model.save()
+
+        # Fire one change event for all of our editing...
+        @model.change()
+
+        # Remove us.
+        $(@el).remove()

@@ -26,3 +26,6 @@ module.exports = class Store extends Chaplin.Collection
             # Actual reduce.
             max = _.reduce activs, ( (a, b) -> a += b.points ), 0
             if max > @max then @band = (@max = max) / 6
+
+    selectDay: (model) ->
+        model.set 'selected': true, { 'silent': true }

@@ -10,6 +10,12 @@ module.exports = class DayView extends Chaplin.View
 
     getTemplateFunction: -> require 'chaplin/templates/day'
 
+    initialize: ->
+        super
+
+        # If someone is editing a Day and it is not this Day, then remove the selected attr.
+        Mediator.subscribe 'changeEntry', ( (model) -> if model isnt @model then $(@el).removeClass('selected') ), @
+
     afterRender: ->
         super
 
@@ -18,8 +24,8 @@ module.exports = class DayView extends Chaplin.View
         # Are we not a filler?
         if @model?
 
-            # If we change activities of a Day...
-            @modelBind 'change:activities', ->
+            # Did we change the Model?
+            @modelBind 'change', ->
                 # Update the Store max?
                 @model.collection.updateMaxPoints()
                 # Finally, re-render all months.
@@ -38,4 +44,6 @@ module.exports = class DayView extends Chaplin.View
             # Register click handler.
             @delegate 'click', @editEntry
 
-    editEntry: -> Mediator.publish 'changeEntry', @model
+    editEntry: ->
+        $(@el).addClass 'selected'
+        Mediator.publish 'changeEntry', @model

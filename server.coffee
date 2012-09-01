@@ -63,7 +63,8 @@ exports.startServer = (port, dir) ->
     app.router.path "/api/day/:year/:month/:day", ->
         @post (year, month, day) ->
             entry = @req.body
-            # Remove _id
+            
+            # Remove _id.
             delete entry._id
 
             app.db (collection) =>
