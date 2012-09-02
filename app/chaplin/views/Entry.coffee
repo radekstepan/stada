@@ -50,15 +50,28 @@ module.exports = class Entry extends Chaplin.View
             attr[object.name] = object.value
 
         # Update the model, reset the activities as we will re-create them anew.
-        @model.set { 'notes': attr.notes, 'activities': [] }, { 'silent': true }
+        @model.set { 'notes': attr.notes, 'activities': [], 'tags': [] }, { 'silent': true }
         done = false ; i = 0
         while not done
             # Only save activities that have some text to them...
             if attr["activity-#{i}"]? and attr["activity-#{i}"].length isnt 0
-                activities = @model.get('activities')
-                activities.push 'text': attr["activity-#{i}"], 'points': parseInt(attr["points-#{i}"])
-                @model.unset 'activities', { 'silent': true }
-                @model.set 'activities': activities, { 'silent': true }
+                text = $.trim(attr["activity-#{i}"]).replace /\s+/, ' ' # trim and clean whitespace
+                tag = text.split(/\s/)[0].toLowerCase() # take first word as a tag and make it lowercase
+                points = parseInt(attr["points-#{i}"]) # parse tags into a Number
+
+                # Activities.
+                activities = @model.get('activities') # get
+                activities.push 'text': text, 'points': points # push
+                @model.unset 'activities', { 'silent': true } # reset
+                @model.set 'activities': activities, { 'silent': true } # set
+
+                # Tags.
+                tags = @model.get('tags') # get
+                if tag not in tags # is it new?
+                    tags.push tag # push
+                    @model.unset 'tags', { 'silent': true } # reset
+                    @model.set 'tags': tags, { 'silent': true } # set
+
                 i++
             else done = true
 

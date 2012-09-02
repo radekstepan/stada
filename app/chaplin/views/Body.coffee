@@ -3,6 +3,7 @@ Chaplin = require 'chaplin'
 Mediator = require 'chaplin/core/Mediator'
 
 EntryView = require 'chaplin/views/Entry'
+TagsCollectionView = require 'chaplin/views/TagsCollection'
 
 module.exports = class Body extends Chaplin.View
 
@@ -19,7 +20,17 @@ module.exports = class Body extends Chaplin.View
 
         @delegate 'click', '#today', @todayEntry
 
+        # Edit/View and entry Day.
         @entry = new EntryView()
+
+        # Sidebar Tag filtering.
+        Mediator.subscribe 'renderTags', @renderFilter, @
+        Mediator.publish 'renderTags'
+
+    # Sidebar Tag filtering.
+    renderFilter: ->
+        @filter?.dispose()
+        @filter = new TagsCollectionView 'collection': @store.tags
 
     todayEntry: ->
         # Find the model corresponding to today.

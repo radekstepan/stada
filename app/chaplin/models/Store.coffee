@@ -1,13 +1,24 @@
 Chaplin = require 'chaplin'
 
 Day = require 'chaplin/models/Day'
+Tags = require 'chaplin/models/Tags'
 
 module.exports = class Store extends Chaplin.Collection
 
     model: Day
 
+    # Tags Collection.
+    tags: null
+
     initialize: (data) ->
         super
+
+        # Update Tags when we change Days.
+        @on 'change', ( (day) -> @tags.addTags day ), @
+
+        # Init new Tags Collection.
+        @tags = new Tags()
+        @tags.addTags data
 
         # When init all server days, calculate the max and bands.
         @updateMaxPoints data
@@ -27,5 +38,4 @@ module.exports = class Store extends Chaplin.Collection
             max = _.reduce activs, ( (a, b) -> a += b.points ), 0
             if max > @max then @band = (@max = max) / 6
 
-    selectDay: (model) ->
-        model.set 'selected': true, { 'silent': true }
+    selectDay: (model) -> model.set 'selected': true, { 'silent': true }
