@@ -24,11 +24,11 @@ module.exports = class Body extends Chaplin.View
         @entry = new EntryView()
 
         # Sidebar Tag filtering.
-        Mediator.subscribe 'renderTags', @renderFilter, @
+        Mediator.subscribe 'renderTags', @renderTags, @
         Mediator.publish 'renderTags'
 
     # Sidebar Tag filtering.
-    renderFilter: ->
+    renderTags: ->
         @filter?.dispose()
         @filter = new TagsCollectionView 'collection': @store.tags
 

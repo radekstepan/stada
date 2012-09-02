@@ -33,10 +33,26 @@ module.exports = class DayView extends Chaplin.View
             , @
 
             $(@el).addClass 'day'
-            # How much activity did we diddly do?
-            if @model.get('activities').length isnt 0
-                lvl = Math.ceil _.reduce(@model.get('activities'), ( (a, b) -> a += b.points ), 0) / @model.collection.band
-                $(@el).addClass "level#{lvl}"
+            
+            # How much activity did we diddly do? If we have deselected all then band will be 0!
+            if @model.get('activities').length isnt 0 and @model.collection.band isnt 0
+                pts = 0
+                pts += activ.points for activ in @model.get('activities') when @model.collection.isTagSelected(activ.tag)
+                
+                # Ceil and assign band.
+                lvl = Math.ceil pts / @model.collection.band
+
+                # Check it is within the range.
+                assert lvl in [0...7], "Level is set to `#{lvl}`"
+                assert @model.collection.band?, 'Band is not set'
+
+                # Finally set it if we got some points...
+                if pts isnt 0
+                    $(@el).addClass "level#{lvl}"
+                else
+                    # No notes too?
+                    if @model.get('notes').length is 0 then $(@el).addClass 'empty'
+
             else
                 # Did we at least save some notes?
                 if @model.get('notes').length is 0 then $(@el).addClass 'empty'

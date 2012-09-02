@@ -24,7 +24,11 @@ module.exports = class TagsCollectionView extends Chaplin.CollectionView
         @delegate 'click', '.select', @select
 
     clear: ->
-        console.log 'clear'
+        tag.set('selected': false) for tag in @collection.models
+        Mediator.publish 'renderTags'
+        Mediator.publish 'renderMonths'
 
     select: ->
-        console.log 'select'
+        tag.set('selected': true) for tag in @collection.models
+        Mediator.publish 'renderTags'
+        Mediator.publish 'renderMonths'

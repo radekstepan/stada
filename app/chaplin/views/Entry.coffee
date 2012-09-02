@@ -61,16 +61,9 @@ module.exports = class Entry extends Chaplin.View
 
                 # Activities.
                 activities = @model.get('activities') # get
-                activities.push 'text': text, 'points': points # push
+                activities.push 'text': text, 'points': points, 'tag': tag # push
                 @model.unset 'activities', { 'silent': true } # reset
                 @model.set 'activities': activities, { 'silent': true } # set
-
-                # Tags.
-                tags = @model.get('tags') # get
-                if tag not in tags # is it new?
-                    tags.push tag # push
-                    @model.unset 'tags', { 'silent': true } # reset
-                    @model.set 'tags': tags, { 'silent': true } # set
 
                 i++
             else done = true

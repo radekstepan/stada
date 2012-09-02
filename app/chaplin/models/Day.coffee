@@ -8,7 +8,6 @@ module.exports = class Day extends Chaplin.Model
         'notes': ''
         'activities': []
         'selected': false # are we selected in the View?
-        'tags': []
 
     url: -> [ '/api', 'day', @get('year'), @get('month'), @get('day') ].join('/')
 

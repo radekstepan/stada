@@ -26,12 +26,12 @@ module.exports = class Tags extends Chaplin.Collection
         # Determine the nature of the incoming object.
         if object instanceof Array
             # On initial reset.
-            for obj in object when obj.tags? and obj.tags.length isnt 0
-                @mapTag(tag) for tag in obj.tags
+            for obj in object when obj.activities? and obj.activities.length isnt 0
+                @mapTag(activ.tag) for activ in obj.activities
         else
             # Individual object maybe?
             if object.constructor.name is 'Day'
-                @mapTag(tag) for tag in object.get 'tags'
+                @mapTag(activ.tag) for activ in object.get 'activities'
 
         # Recalculate the max tag count and the band.
         @band = (@max = _.max _.map @models, (model) -> model.get 'count') / 6

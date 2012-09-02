@@ -20,11 +20,19 @@ module.exports = class Store extends Chaplin.Collection
         @tags = new Tags()
         @tags.addTags data
 
+        # When tags get (de-)selected, recalculate the max points for activities.
+        # Use convoluted call to not pass Tag on...
+        @tags.on 'change:selected', ( -> @updateMaxPoints() ), @
+
         # When init all server days, calculate the max and bands.
-        @updateMaxPoints data
+        @updateMaxPoints data, true
+
+    # Check if Tag is selected or not in our inner Collection.
+    isTagSelected: (tag) -> (@tags.where 'text': tag, 'selected': true).length isnt 0
 
     # Recalculate the global maximum of points in all models.
-    updateMaxPoints: (data = @models) ->
+    updateMaxPoints: (data, init = false) ->
+        data = @models unless init
         @max = -Infinity
 
         # A more verbose, but easier to debug...
@@ -34,8 +42,12 @@ module.exports = class Store extends Chaplin.Collection
                 activs = day.get 'activities'
             else
                 activs = day.activities
-            # Actual reduce.
-            max = _.reduce activs, ( (a, b) -> a += b.points ), 0
+            
+            # Get the local max.
+            max = 0
+            max += activ.points for activ in activs when @isTagSelected activ.tag
             if max > @max then @band = (@max = max) / 6
+
+        assert @max >= 0, "Max is set to #{@max}"
 
     selectDay: (model) -> model.set 'selected': true, { 'silent': true }
