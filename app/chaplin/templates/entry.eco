@@ -3,7 +3,7 @@
     <span><%= @relative %></span>
 </h3>
 
-<form>
+<form class="custom">
     <label>What happened?</label>
     <textarea name="notes" rows="14"><%= @notes %></textarea>
 

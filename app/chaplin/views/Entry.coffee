@@ -35,8 +35,13 @@ module.exports = class Entry extends Chaplin.View
             activity.key = @activity++
             $(@el).find('.activities').append require('chaplin/templates/entry_activity') activity
 
+        # Custom Foundation3 form.
+        $(@el).foundationCustomForms()
+
     newActivity: =>
         $(@el).find('.activities').append require('chaplin/templates/entry_activity') 'key': @activity++
+        # Custom Foundation3 form.
+        $(@el).foundationCustomForms()
 
     save: =>
         # Serialize form fields.
