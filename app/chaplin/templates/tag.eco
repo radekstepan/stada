@@ -1,1 +1,4 @@
-<a><%= @text %></a>
+<form class="custom">
+    <input type="checkbox" <% if @selected: %>checked="true"<% end %> />
+    <a><%= @text %></a>
+</form>

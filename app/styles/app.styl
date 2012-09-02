@@ -8,6 +8,10 @@ a
 .row
     width: 100%
 
+form.custom
+    margin: 0
+    padding: 0
+
 #top
     line-height: 45px
     background: url('../images/subtle_carbon.png')
@@ -44,21 +48,32 @@ ul
             font-weight: normal
             margin: 5px 0
 
-#tags ul li.tag
-    &.level0 a
-        color: #f1eef6
-    &.level1 a
-        color: #d0d1e6
-    &.level2 a
-        color: #a6bddb
-    &.level3 a
-        color: #74a9cf
-    &.level4 a
-        color: #3690c0
-    &.level5 a
-        color: #0570b0
-    &.level6 a
-        color: #034e7b
+#tags
+    ul
+        position: relative
+        padding-top: 50px
+
+        li.tag
+            &.level0 a
+                color: #f1eef6
+            &.level1 a
+                color: #d0d1e6
+            &.level2 a
+                color: #a6bddb
+            &.level3 a
+                color: #74a9cf
+            &.level4 a
+                color: #3690c0
+            &.level5 a
+                color: #0570b0
+            &.level6 a
+                color: #034e7b
+
+    .functions
+        font-size: 12px
+        position: absolute
+        top: 0
+        left: 0
 
 #calendar table
     border: 0

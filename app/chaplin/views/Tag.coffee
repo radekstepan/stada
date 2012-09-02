@@ -2,7 +2,7 @@ Chaplin = require 'chaplin'
 
 module.exports = class TagView extends Chaplin.View
 
-    tagName:    'li'
+    tagName:   'li'
 
     getTemplateFunction: -> require 'chaplin/templates/tag'
 
@@ -14,3 +14,6 @@ module.exports = class TagView extends Chaplin.View
         # Add the tag level.
         lvl = Math.ceil @model.get('count') / @model.collection.band
         $(@el).addClass "tag level#{lvl}"
+
+        # Init Foundation3 form theme after a slight delay...
+        setTimeout ( => $(@el).foundationCustomForms() ), 0
