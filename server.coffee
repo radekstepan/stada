@@ -3,6 +3,7 @@
 flatiron = require 'flatiron'
 connect  = require 'connect'
 mongodb  = require 'mongodb'
+fs       = require 'fs'
 
 # Export for Brunch.
 exports.startServer = (port, dir) ->
@@ -75,6 +76,18 @@ exports.startServer = (port, dir) ->
                 , [], entry, 'upsert': true, (err, object) =>
                     throw err if err
 
-                    # End.
-                    @res.writeHead 200
-                    @res.end()
+                    # Dump the DB.
+                    collection.find({}, 'sort': 'url').toArray (err, docs) =>
+                        throw err if err
+                        
+                        # Open file for writing.
+                        time = (new Date()).toISOString()
+                        fs.open "./dump/entries-#{time}.json", 'w', 0o0666, (err, id) =>
+                            throw err if err
+                            
+                            # Write file.
+                            fs.write id, JSON.stringify(docs, null, "\t"), null, "utf8"
+
+                            # End.
+                            @res.writeHead 200
+                            @res.end()
