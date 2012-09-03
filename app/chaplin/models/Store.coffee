@@ -48,6 +48,4 @@ module.exports = class Store extends Chaplin.Collection
             max += activ.points for activ in activs when @isTagSelected activ.tag
             if max > @max then @band = (@max = max) / 6
 
-        assert @max >= 0, "Max is set to #{@max}"
-
     selectDay: (model) -> model.set 'selected': true, { 'silent': true }

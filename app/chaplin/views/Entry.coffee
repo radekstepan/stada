@@ -50,7 +50,7 @@ module.exports = class Entry extends Chaplin.View
             attr[object.name] = object.value
 
         # Update the model, reset the activities as we will re-create them anew.
-        @model.set { 'notes': attr.notes, 'activities': [], 'tags': [] }, { 'silent': true }
+        @model.set { 'notes': attr.notes, 'activities': [] }, { 'silent': true }
         done = false ; i = 0
         while not done
             # Only save activities that have some text to them...
@@ -64,6 +64,9 @@ module.exports = class Entry extends Chaplin.View
                 activities.push 'text': text, 'points': points, 'tag': tag # push
                 @model.unset 'activities', { 'silent': true } # reset
                 @model.set 'activities': activities, { 'silent': true } # set
+
+                # Map the 'new' tag.
+                @model.collection.tags.mapTag tag
 
                 i++
             else done = true

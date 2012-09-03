@@ -14,7 +14,7 @@ module.exports = class TagsCollectionView extends Chaplin.CollectionView
 
     getView: (tag) -> new TagView 'model': tag
 
-    getTemplateFunction: -> require 'chaplin/templates/tags'
+    getTemplateFunction: -> require 'chaplin/templates/tags' if @collection.length isnt 0
 
     afterRender: ->
         super
