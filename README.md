@@ -2,6 +2,30 @@
 
 Your data, your achievements, your points.
 
+![image](https://github.com/radekstepan/stada/raw/master/example.png)
+
+## Getting started
+
+Start the MongoDB:
+
+```bash
+$ sudo mongod
+```
+
+Install the package dependencies:
+
+```bash
+$ npm install -d
+```
+
+Start the server and compile client side app watching for changes:
+
+```bash
+$ npm start
+```
+
+The port to start on is set in `config.coffee`.
+
 ## Troubleshooting
 
 ### NPM

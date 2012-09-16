@@ -81,8 +81,7 @@ exports.startServer = (port, dir) ->
                         throw err if err
                         
                         # Open file for writing.
-                        time = (new Date()).toISOString()
-                        fs.open "./dump/entries-#{time}.json", 'w', 0o0666, (err, id) =>
+                        fs.open "./dump/entries.json", 'w', 0o0666, (err, id) =>
                             throw err if err
                             
                             # Write file.
