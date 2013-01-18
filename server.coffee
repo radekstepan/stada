@@ -17,6 +17,7 @@ exports.startServer = (port, dir) ->
         ]
 
     app.start port, (err) ->
+        console.log "Service started on port #{app.server.address().port}"
         throw err if err
 
     # MongoDB.
@@ -49,6 +50,22 @@ exports.startServer = (port, dir) ->
                     # End.
                     @res.writeHead 200
                     @res.end()
+
+    app.router.path "/api/load", ->
+        @get ->
+            fs.readFile './dump/entries.json', (err, data) =>
+                throw err if err
+                
+                entries = ( (delete entry._id ; entry) for entry in JSON.parse data )
+
+                app.db (collection) =>
+                    collection.insert entries, { 'safe': true }, (err) =>
+                        throw err if err
+
+                        @res.writeHead 200
+                        @res.write 'Data loaded'
+                        @res.end()                        
+
 
     app.router.path "/api/days", ->
         @get ->

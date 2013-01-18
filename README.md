@@ -24,6 +24,12 @@ Start the server and compile client side app watching for changes:
 $ npm start
 ```
 
+Or more explicitly:
+
+```bash
+$ node ./node_modules/brunch/bin/brunch watch --server
+```
+
 The port to start on is set in `config.coffee`.
 
 ## Troubleshooting

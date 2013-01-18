@@ -9,8 +9,6 @@ module.exports = class DashboardController extends Chaplin.Controller
 
     historyURL: (params) -> ''
 
-    store: window.Store
-
     index: (params) ->
         new BodyView()
 
